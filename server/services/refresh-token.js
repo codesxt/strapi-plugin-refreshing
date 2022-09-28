@@ -6,12 +6,20 @@ module.exports = ({ strapi }) => ({
       .entityService
       .findMany("plugin::refreshing.refresh-token", {});
   },
-  // // Get Refresh Tokens from a user
-  // async getFromUser(query){
-  //   return await strapi
-  //     .entityService
-  //     .findMany("plugin::refresh-token.refresh-token", {});
-  // },
+  // Get Refresh Tokens from a user
+  async getFromUser(id){
+    // TODO: Sort by lastActivity
+    return await strapi
+      .entityService
+      .findMany("plugin::refreshing.refresh-token", {
+        filters: {
+          user: id
+        },
+        sort: {
+          lastActivity: 'desc'
+        }
+      });
+  },
   async deleteRefreshToken(id) {
     return await strapi
       .entityService

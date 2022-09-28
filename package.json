@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-refreshing",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Strapi plugin that adds a basic implementation of refresh tokens.",
   "homepage": "https://github.com/codesxt/strapi-plugin-refreshing#readme",
   "strapi": {
@@ -34,7 +34,7 @@
     "url": "git+https://github.com/codesxt/strapi-plugin-refreshing.git"
   },
   "bugs": {
-    "url": "https://github.com/alexzaganelli/strapi-plugin-refreshing/issues"
+    "url": "https://github.com/codesxt/strapi-plugin-refreshing/issues"
   },
   "keywords": [
     "strapi",

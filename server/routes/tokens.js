@@ -8,15 +8,6 @@ module.exports = {
   type: 'content-api', // other type available: admin.
   routes: [
     {
-      method: 'GET',
-      path: '/auth/tokens',
-      handler: 'tokens.index',
-      config: {
-        policies: [],
-        prefix: '',
-      },
-    },
-    {
       method: 'POST',
       path: '/auth/token/request',
       handler: 'tokens.request',

@@ -13,7 +13,7 @@ module.exports = {
       handler: 'sessions.index',
       config: {
         policies: [],
-        prefix: '',
+        prefix: ''
       },
     },
     // {

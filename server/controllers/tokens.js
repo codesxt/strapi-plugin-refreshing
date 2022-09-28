@@ -3,29 +3,15 @@
 const utils = require('@strapi/utils');
 const _ = require('lodash');
 const crypto = require('crypto');
-const { sanitize } = utils;
 const { ApplicationError, ValidationError } = utils.errors;
 
-const sanitizeUser = (user, ctx) => {
-  const { auth } = ctx.state;
-  const userSchema = strapi.getModel('plugin::users-permissions.user');
-
-  return sanitize.contentAPI.output(user, userSchema, { auth });
-};
-
 module.exports = ({ strapi }) => ({
-  async index(ctx) {
-    const entries = await strapi
-      .entityService
-      .findMany('plugin::refreshing.token');    
-    // const tokenitos = await strapi
-    //   .plugin('refreshing')
-    //   .service('refresh-token')
-    //   .getAll(ctx)
-    // console.log(tokenitos)
-    // console.log('ESOS ERAN')
-    ctx.body = entries;
-  },
+  // async index(ctx) {
+  //   const entries = await strapi
+  //     .entityService
+  //     .findMany('plugin::refreshing.token');
+  //   ctx.body = entries;
+  // },
   async request(ctx) {
     const provider = ctx.params.provider || 'local';
     const params = ctx.request.body;
@@ -79,7 +65,7 @@ module.exports = ({ strapi }) => ({
 
     const refreshTokenData = {
       token: crypto.randomUUID(),
-      description: 'Token generado en el login',
+      description: 'Token generated at login',
       userAgent: ctx.headers['user-agent'],
       ip: ctx.request.ip,
       expiresAt: null,
@@ -122,8 +108,6 @@ module.exports = ({ strapi }) => ({
       }
     }
 
-    console.log(refreshToken)
-
     const user = await strapi
       .entityService
       .findOne('plugin::users-permissions.user', refreshToken.user.id);
@@ -132,23 +116,13 @@ module.exports = ({ strapi }) => ({
       throw new ValidationError('Invalid identifier or password');
     }
 
-    // const payload = await strapi
-    //   .plugin('users-permissions')
-    //   .service('jwt')
-    //   .verify(token)
 		const newJwt = await strapi
       .plugin('users-permissions')
       .service('jwt')
       .issue({
         id: user.id
       })
-    // const tokenitos = await strapi
-    //   .plugin('refreshing')
-    //   .service('refresh-token')
-    //   .getAll(ctx)
-    // console.log(tokenitos)
-    // console.log('ESOS ERAN')
-    console.log(newJwt)
+
     ctx.body = { jwt: newJwt };
   },
   async revoke(ctx) {

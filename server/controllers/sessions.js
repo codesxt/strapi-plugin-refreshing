@@ -1,10 +1,15 @@
 'use strict';
 
 module.exports = ({ strapi }) => ({
-  // Retorna las sesiones del usuario autenticado
+  // Returns sessions of authenticated user
   async index(ctx) {
-    // const entries = await strapi.entityService.findMany('plugin::refreshing.token');
-    const entries = []
+    console.log('Requesting user sessions')
+    const id = 1;
+    const tokens = await strapi
+      .plugin('refreshing')
+      .service('refresh-token')
+      .getFromUser(id)
+    const entries = tokens
     
     ctx.body = entries;
   },
