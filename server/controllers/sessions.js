@@ -3,8 +3,7 @@
 module.exports = ({ strapi }) => ({
   // Returns sessions of authenticated user
   async index(ctx) {
-    console.log('Requesting user sessions')
-    const id = 1;
+    const id = ctx.state.user.id;
     const tokens = await strapi
       .plugin('refreshing')
       .service('refresh-token')

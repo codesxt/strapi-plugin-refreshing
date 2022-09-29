@@ -25,6 +25,10 @@ One of the characteristics of JWT is that they have an expiration date. When the
 
 TODO: Write about Refresh Tokens
 
+## Usage
+
+TODO: Add installation instructions
+
 ## Endpoints
 
 This plugin adds the following endpoints to your Strapi application.
