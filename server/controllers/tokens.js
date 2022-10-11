@@ -6,16 +6,10 @@ const crypto = require('crypto');
 const { ApplicationError, ValidationError } = utils.errors;
 
 module.exports = ({ strapi }) => ({
-  // async index(ctx) {
-  //   const entries = await strapi
-  //     .entityService
-  //     .findMany('plugin::refreshing.token');
-  //   ctx.body = entries;
-  // },
   async request(ctx) {
     const provider = ctx.params.provider || 'local';
     const params = ctx.request.body;
-    const { identifier } = params;
+    const { identifier, description } = params;
     const store = strapi.store({ type: 'plugin', name: 'users-permissions' });
 
     if (!identifier) {
@@ -65,7 +59,7 @@ module.exports = ({ strapi }) => ({
 
     const refreshTokenData = {
       token: crypto.randomUUID(),
-      description: 'Token generated at login',
+      description: (description) ? description : 'Refresh Token',
       userAgent: ctx.headers['user-agent'],
       ip: ctx.request.ip,
       expiresAt: null,

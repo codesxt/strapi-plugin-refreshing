@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  type: 'content-api', // other type available: admin.
+  type: 'content-api',
   routes: [
     {
       method: 'POST',
