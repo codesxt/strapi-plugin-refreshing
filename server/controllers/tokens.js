@@ -117,6 +117,18 @@ module.exports = ({ strapi }) => ({
         id: user.id
       })
 
+    await strapi
+      .plugin('refreshing')
+      .service('refresh-token')
+      .updateRefreshToken(
+        refreshToken.id,
+        {
+          data: {
+            lastActivity: new Date()
+          }
+        }
+      )
+
     ctx.body = { jwt: newJwt };
   },
   async revoke(ctx) {
